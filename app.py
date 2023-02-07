@@ -525,18 +525,6 @@ def main():
                         st.success("success add")
                         st.balloons()
 
-
-
-
-
-
-
-
-
-
-
-
-
     hide_streamlit_style = """
                 <style>
                 #MainMenu {visibility: hidden;}
@@ -558,3 +546,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+    st.markdown(""".viewerBadge_link__1S137 {visibility: hidden;}
+                   .viewerBadge_container__1QSob{visibility: hidden;}
+                   .viewerBadge_link__1S137{display: none;}""",      unsafe_allow_html=True)
