@@ -542,6 +542,16 @@ def main():
                 #MainMenu {visibility: hidden;}
                 footer {visibility: hidden;}
                 .viewerBadge_link__1S137 {visibility: hidden;}
+                .viewerBadge_container__1QSob{visibility: hidden;}
+                .viewerBadge_link__1S137{display: none;}
+                footer { visibility: visibile;}
+                footer{ 
+                        content:'Copyright @ 2023: Faho';
+                        display:block;
+                        position:relative;
+                        color:tomato;
+                        padding:5px;
+                        }
                 </style>
                 """
     st.markdown(hide_streamlit_style, unsafe_allow_html=True)
