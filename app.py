@@ -10,13 +10,13 @@ import requests
 
 st.set_page_config(page_title="compare")
 
-@st.experimental_singleton
+@st.cache_resource
 def init_connection():
     return mysql.connector.connect(**st.secrets['mysql'])
 
 conn = init_connection()
 c = conn.cursor()
-@st.experimental_singleton
+@st.cache_resource
 @st.cache
 def update_cotepara(id, nom, marque, cat, prix, desc, lien_img, link_pro):
     try:
@@ -27,7 +27,7 @@ def update_cotepara(id, nom, marque, cat, prix, desc, lien_img, link_pro):
     except mysql.connector.Error as err:
         print(err)
 
-@st.experimental_singleton
+@st.cache_resource
 @st.cache
 def update_paraconti(id_pro_1, nom_1, marqe_1, Categorie_1, prix_1, discr_1, barcode_1, image_1, link_pro_1):
     try:
@@ -37,7 +37,7 @@ def update_paraconti(id_pro_1, nom_1, marqe_1, Categorie_1, prix_1, discr_1, bar
         conn.commit()
     except mysql.connector.Error as err:
         print(err)
-@st.experimental_singleton
+@st.cache_resource
 @st.cache
 def add_cotepara(id,Nom_add ,Marque_add  ,list_Categorie_add ,Prix_add  ,Description_add ,Image_add ,Link_add):
     try:
@@ -53,7 +53,7 @@ def add_cotepara(id,Nom_add ,Marque_add  ,list_Categorie_add ,Prix_add  ,Descrip
     except mysql.connector.Error as err:
         print(err)
 
-@st.experimental_singleton
+@st.cache_resource
 @st.cache
 def add_parasconti(id,Nom_add ,Marque_add  ,list_Categorie_add ,Prix_add  ,Description_add ,Barcode_add ,Image_add ,Link_add):
     try:
@@ -72,8 +72,8 @@ def add_parasconti(id,Nom_add ,Marque_add  ,list_Categorie_add ,Prix_add  ,Descr
 def convert_df(df):
     return df.to_csv().encode('utf-8')
 
-@st.experimental_singleton
-@st.experimental_memo(ttl=600)
+@st.cache_resource
+@st.cache_data()
 def run_query():
     # rows = run_query("SELECT * from cotepara;")
     c.execute("SELECT * from cotepara;")
@@ -88,7 +88,7 @@ def run_query():
               "product_Barcode", "product_Image", "product_Link"]
     Parasconti = pd.DataFrame(rows_1, columns=coll_1)
     return Cotepara, Parasconti
-@st.experimental_memo(ttl=600)
+@st.cache_data()
 @st.cache
 def view_all_cotepara():
 	c.execute("SELECT * from cotepara")
